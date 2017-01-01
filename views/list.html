@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/resources/style.css">
+	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"> </script>
+	<!-- <script type="text/javascript" src="/resources/login.js"></script> -->
+</head>
+   <body>
+	<h2>{{user}}'s list</h2>
+	<br><!-- 
+	{{#list}}
+	* {{.}}
+	{{/list}} -->
+
+	<div id="list" border='dotted'>
+
+		{{#list}}
+		<div class="listItem">
+			<div class="itemName">{{.}}</div>
+			<form action = "/del" method = "POST" class="form">
+				<input type = "hidden" value = "{{.}}" name="item">
+				<input type = "submit" value = "Delete" name="{{.}}">
+			</form>
+			<form action = "/editElem" method = "POST">
+				<input type = "hidden" value = "{{.}}" name="item">
+				<input type = "submit" value = "Edit" name="{{.}}">
+			</form>
+		</div>
+		{{/list}}
+	</div>
+	
+	<br><br>
+	
+	<div>
+	<form action = "/add" method = "POST">
+		New item: <input type = "text" name = "newItem" class="input">
+		<input type = "submit" value = "Add">
+	</form>
+	</div>
+
+   </body>
+</html>
