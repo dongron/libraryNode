@@ -21,6 +21,7 @@ var server = app.listen(8082, function () {
 })
 
 var MongoClient = require('mongodb').MongoClient;
+var ObjectId = require('mongodb').ObjectID;
 var userCollection;
 var booksCollection;
 MongoClient.connect("mongodb://localhost:27017/library", function(err, db) {
@@ -35,7 +36,7 @@ MongoClient.connect("mongodb://localhost:27017/library", function(err, db) {
 
 
 
-var User = {logn:'', pass:'', list:''};
+var User = {id:'', logn:'', pass:'', list:''};
 var isLocked = false;
 
 
@@ -50,11 +51,11 @@ app.post('/', function(req, res) {
     User.pass = req.body.pass; 
 
     var passFromDatabase = "";
-
 	userCollection.findOne({login: User.login}).then(
   		item => {
 	  		if(User.login && User.pass && User.pass === item.password) {
-				console.log("Password ok");
+				console.log("Password ok "+ item._id);
+				User.id = item._id;
 				res.redirect('/list');
 			} else {
 				console.error("Wrong pass/user");
@@ -72,22 +73,48 @@ app.post('/', function(req, res) {
 
 
 app.get('/list', function (req, res) {
-		var myBooks = [];
+		var usersBooks = [];
 		var allBooks = [];
 		console.log("||");
 		booksCollection.find().toArray().then(
 			items => {
-				console.log("||"+User.login + User.pass);
-				// console.log("||"+User.login + User.pass);
-				// console.log(User.login + " \n" + items);
+				for (var i in items) {
+					allBooks.push(items[i]);
+					if(items[i].rentBy == User.id) {
+						usersBooks.push(items[i]);
+						console.log("my books" +allBooks[i].rentBy);
+					}
+				}
 				var tmp = [];
-				res.render(__dirname + "/views/" +'list.html',{user: User.login, list: items});
+				res.render(__dirname + "/views/" +'list.html',{user: User.login, allBooks: allBooks, usersBooks: usersBooks});
 			},
 			err => console.error(err)
 		);
-
-		// res.render(__dirname + "/" +'list.html',{user: User.login, list: allBooks});
 })
+
+
+app.post('/rent', function(req, res) {
+	var bookId = req.body.item;
+	console.log("rent: "+bookId+ " | "+User.id);
+
+	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": User.id.toString()}}).then(
+		items => {
+			console.log(" __ w then rent");
+			res.redirect('/list');
+		},
+		err => console.log(err)
+	);
+})
+
+
+
+
+
+/*	booksCollection.insert({name: bookId, author: User.name}).then(
+		item => console.log("success " + item), 
+		err => console.log(err)
+	);*/
+
 
 
 

@@ -1,42 +1,57 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<link rel="stylesheet" type="text/css" href="/resources/style.css">
-	<script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"> </script>
-	<!-- <script type="text/javascript" src="/resources/login.js"></script> -->
-</head>
-   <body>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/resources/style.css">
+		<script type="text/javascript" src="/home/dominik/Desktop/JI/04/node_modules/jquery/dist/jquery.min.js"> </script>
+		<script type="text/javascript" src="/resources/login.js"></script>
+	</head>
+	<body>
 	<h2>{{user}}'s list</h2>
 	<br><!-- 
 	{{#list}}
 	* {{.}}
 	{{/list}} -->
 
-	<div id="list" border='dotted'>
+	<div id="usersList" border='dotted'>
 
-		{{#list}}
+		{{#usersBooks}}
 		<div class="listItem">
-			<div class="itemName">{{.}}</div>
-			<form action = "/del" method = "POST" class="form">
-				<input type = "hidden" value = "{{.}}" name="item">
-				<input type = "submit" value = "Delete" name="{{.}}">
+			<div class="itemName">{{name}}</div>
+			<form action = "/ret" method = "POST" class="form">
+				<input type = "hidden" value = "{{name}}" name="item">
+				<input type = "submit" value = "Return" name="{{name}}">
 			</form>
-			<form action = "/editElem" method = "POST">
+<!-- 			<form action = "/editElem" method = "POST">
 				<input type = "hidden" value = "{{.}}" name="item">
 				<input type = "submit" value = "Edit" name="{{.}}">
+			</form> -->
+		</div>
+		{{/usersBooks}}
+	</div>
+
+
+<br>---<br><br>
+	<div id="fullList" border='dotted'>
+
+		{{#allBooks}}
+		<div class="listItem">
+			<div class="itemName">{{name}}</div>
+			<form action = "/rent" method = "POST" class="form">
+				<input type = "hidden" value = "{{_id}}" name="item">
+				<input type = "submit" value = "Rent" name="{{_id}}">
 			</form>
 		</div>
-		{{/list}}
+		{{/allBooks}}
 	</div>
 	
 	<br><br>
 	
-	<div>
+<!-- 	<div>
 	<form action = "/add" method = "POST">
 		New item: <input type = "text" name = "newItem" class="input">
 		<input type = "submit" value = "Add">
 	</form>
-	</div>
+	</div> -->
 
-   </body>
+	</body>
 </html>
