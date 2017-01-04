@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<link rel="stylesheet" type="text/css" href="/resources/style.css">
-		<script type="text/javascript" src="/home/dominik/Desktop/JI/04/node_modules/jquery/dist/jquery.min.js"> </script>
+		<script src="/jquery/jquery.js"></script>
 		<script type="text/javascript" src="/resources/login.js"></script>
 	</head>
 	<body>
@@ -17,9 +17,9 @@
 		{{#usersBooks}}
 		<div class="listItem">
 			<div class="itemName">{{name}}</div>
-			<form action = "/ret" method = "POST" class="form">
-				<input type = "hidden" value = "{{name}}" name="item">
-				<input type = "submit" value = "Return" name="{{name}}">
+			<form action = "/return" method = "POST" class="form">
+				<input type = "hidden" value = "{{_id}}" name="item">
+				<input type = "submit" value = "Return" name="{{_id}}">
 			</form>
 <!-- 			<form action = "/editElem" method = "POST">
 				<input type = "hidden" value = "{{.}}" name="item">
