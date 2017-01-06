@@ -1,51 +1,73 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/resources/style.css">
-		<script src="/jquery/jquery.js"></script>
-		<script type="text/javascript" src="/resources/login.js"></script>
+		<link rel="stylesheet" type="text/css" href="/resources/style-list.css">
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">
+		<script type="text/javascript" src="/jquery/jquery.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="/resources/list.js"></script>
+		<script type="text/javascript" src="/mustache/mustache.min.js"></script>
 	</head>
 	<body>
-	<h2>{{user}}'s list</h2>
-	<br><!-- 
+	<!-- 
 	{{#list}}
 	* {{.}}
 	{{/list}} -->
+	<div class="container">
+		<h1 class="page-header">{{user}}'s list</h1>
+		<br>
+		<div class="row jumbotron">
 
-	<div id="usersList" border='dotted'>
+			<div id="usersList" class="col-sm-7" border='dotted'>
+				<div class="page-header">
+				<h4>Your rented books</h4>
+				</div>
+				<div class="list-group">
+					{{#usersBooks}}
+					<div class="listItem list-group-item">
+						<div class="itemName">{{name}}</div>
+						<form action = "/return" method = "POST" class="form">
+							<input type = "hidden" value = "{{_id}}" name="item">
+							<button class="btn btn-default btn-sm" type = "submit" value = "Return" name="{{_id}}">
+								Return <span class="glyphicon glyphicon-triangle-right"></span>
+							</button>
+						</form>
+					</div>
+					{{/usersBooks}}
+				</div>
+			</div>
 
-		{{#usersBooks}}
-		<div class="listItem">
-			<div class="itemName">{{name}}</div>
-			<form action = "/return" method = "POST" class="form">
-				<input type = "hidden" value = "{{_id}}" name="item">
-				<input type = "submit" value = "Return" name="{{_id}}">
-			</form>
-<!-- 			<form action = "/editElem" method = "POST">
-				<input type = "hidden" value = "{{.}}" name="item">
-				<input type = "submit" value = "Edit" name="{{.}}">
-			</form> -->
+
+			<div id="fullList" class="col-sm-5" border='dotted'>
+			<div class="page-header">
+				<h4>All books</h4>
+			</div>
+			<div class="list-group">
+				{{#allBooks}}
+				<div class="listItem list-group-item">
+					<div class="itemName">{{name}}</div>
+					<form action = "/rent" method = "POST" class="form">
+						<input type = "hidden" value = "{{_id}}" name="item">
+						{{#rentBy}}
+						<button class="btn btn-primary btn-sm .btn-default disabled" type = "submit" value = "Rent" name="{{_id}}" disabled>
+							<span class="glyphicon glyphicon-triangle-left"></span> Not avaliable
+						</button>
+						{{/rentBy}}
+						{{^rentBy}}
+						<button class="btn btn-primary btn-sm .btn-default active" type = "submit" value = "Rent" name="{{_id}}">
+							<span class="glyphicon glyphicon-triangle-left"></span> Rent
+						{{/rentBy}}
+						</button>
+					</form>
+				</div>
+				{{/allBooks}}
+				</div>
+			</div>
+			
+			<br><br>
 		</div>
-		{{/usersBooks}}
 	</div>
-
-
-<br>---<br><br>
-	<div id="fullList" border='dotted'>
-
-		{{#allBooks}}
-		<div class="listItem">
-			<div class="itemName">{{name}}</div>
-			<form action = "/rent" method = "POST" class="form">
-				<input type = "hidden" value = "{{_id}}" name="item">
-				<input type = "submit" value = "Rent" name="{{_id}}">
-			</form>
-		</div>
-		{{/allBooks}}
-	</div>
-	
-	<br><br>
-	
 <!-- 	<div>
 	<form action = "/add" method = "POST">
 		New item: <input type = "text" name = "newItem" class="input">

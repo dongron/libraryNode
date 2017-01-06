@@ -35,7 +35,8 @@ MongoClient.connect("mongodb://localhost:27017/library", function(err, db) {
 });
 
 app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist/'));
-
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'));
+app.use('/mustache', express.static(__dirname + '/node_modules/mustache/'));
 
 var User = {id:'', logn:'', pass:'', list:''};
 var isLocked = false;
