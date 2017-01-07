@@ -27,12 +27,13 @@
 					{{#usersBooks}}
 					<div class="listItem list-group-item">
 						<div class="itemName">{{name}}</div>
-						<form action = "/return" method = "POST" class="form">
+						<!-- <form action = "/return" method = "POST" class="form"> -->
 							<input type = "hidden" value = "{{_id}}" name="item">
-							<button class="btn btn-default btn-sm" type = "submit" value = "Return" name="{{_id}}">
+							<!-- value = "Return" name="{{_id}}" type = "submit" -->
+							<button id="return" class="return btn btn-default btn-sm" value="{{_id}}">
 								Return <span class="glyphicon glyphicon-triangle-right"></span>
 							</button>
-						</form>
+						<!-- </form> -->
 					</div>
 					{{/usersBooks}}
 				</div>
@@ -68,12 +69,48 @@
 			<br><br>
 		</div>
 	</div>
-<!-- 	<div>
-	<form action = "/add" method = "POST">
-		New item: <input type = "text" name = "newItem" class="input">
-		<input type = "submit" value = "Add">
-	</form>
-	</div> -->
+
+
+	<div class="modal fade" id="question" role="dialog">
+		<div class="modal-dialog">
+		  <!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<p>Would you like to add review?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		  		<button type="button" class="btn btn-default noReview" data-dismiss="modal">No</button>
+		  		<button type="button" class="btn btn-success addReview" id="questionYes" data-dismiss="modal">Yes</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="review" role="dialog">
+		<div class="modal-dialog">
+		  <!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<div class="form-group">
+				<label for="usr">Your review:</label>
+				<textarea class="form-control reviewText" rows="5" id="comment"></textarea>
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default noReview" data-dismiss="modal">Return without review</button>
+			  	<button type="button" class="btn btn-success withReview" id="finishSummary" data-dismiss="modal">Add review</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
 
 	</body>
 </html>

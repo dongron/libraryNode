@@ -103,17 +103,27 @@ app.post('/rent', function(req, res) {
 
 app.post('/return', function(req, res) {
 	var bookId = req.body.item;
-	console.log("rent: "+bookId+ " | "+User.id);
 
 	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": ""}}).then(
 		items => {
-			console.log(" __ w then rent");
 			res.redirect('/list');
 		},
 		err => console.log(err)
 	);
 })
 
+app.post('/returnWithReview', function(req, res) {
+	var bookId = req.body.item;
+	var review = req.body.review;
+	console.log("rent: "+bookId+ " | "+review);
+
+	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": "", "review": review}}).then(
+		items => {
+			res.redirect('/list');
+		},
+		err => console.log(err)
+	);
+})
 
 
 
