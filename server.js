@@ -9,7 +9,7 @@ app.engine('html', engines.mustache);
 app.set('view engine', 'html');
 
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
+	extended: true
 })); 
 app.use(express.static('resources'));
 app.use('/resources', express.static('resources'));
@@ -49,14 +49,13 @@ app.get('/', function (req, res) {
 })
 
 app.post('/', function(req, res) {
-    User.login = req.body.login;  
-    User.pass = req.body.pass; 
+	User.login = req.body.login;  
+	User.pass = req.body.pass; 
 
-    var passFromDatabase = "";
+	var passFromDatabase = "";
 	userCollection.findOne({login: User.login}).then(
-  		item => {
-	  		if(User.login && User.pass && User.pass === item.password) {
-				console.log("Password ok "+ item._id);
+		item => {
+			if(User.login && User.pass && User.pass === item.password) {
 				User.id = item._id;
 				res.redirect('/list');
 			} else {
@@ -70,14 +69,12 @@ app.post('/', function(req, res) {
 app.get('/list', function (req, res) {
 		var usersBooks = [];
 		var allBooks = [];
-		console.log("||");
 		booksCollection.find().toArray().then(
 			items => {
 				for (var i in items) {
 					allBooks.push(items[i]);
 					if(items[i].rentBy == User.id) {
 						usersBooks.push(items[i]);
-						console.log("my books" +allBooks[i].rentBy);
 					}
 				}
 				var tmp = [];
@@ -90,11 +87,9 @@ app.get('/list', function (req, res) {
 
 app.post('/rent', function(req, res) {
 	var bookId = req.body.item;
-	console.log("rent: "+bookId+ " | "+User.id);
 
 	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": User.id.toString()}}).then(
 		items => {
-			console.log(" __ w then rent");
 			res.redirect('/list');
 		},
 		err => console.log(err)
@@ -115,7 +110,6 @@ app.post('/return', function(req, res) {
 app.post('/returnWithReview', function(req, res) {
 	var bookId = req.body.item;
 	var review = req.body.review;
-	console.log("rent: "+bookId+ " | "+review);
 
 	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": "", "review": review}}).then(
 		items => {
@@ -124,75 +118,3 @@ app.post('/returnWithReview', function(req, res) {
 		err => console.log(err)
 	);
 })
-
-
-
-
-
-/*	booksCollection.insert({name: bookId, author: User.name}).then(
-		item => console.log("success " + item), 
-		err => console.log(err)
-	);*/
-
-
-
-
-/*
-app.get('/list', function (req, res) {
-	redis.hgetall('user:'+User.login, function (err, result) {
-		var items = [];
-		var listItems = [];
-		for (i in result) {
-			items.push(result[i]);
-		}
-		if(User.pass === items[0]) {
-			User.list = items[1];
-			redis.lrange(User.list, 0, -1, function (err, resultL) {
-				for (i in resultL) {
-					listItems.push(resultL[i]);
-					console.log(listItems[i]);
-				}
-
-				res.render(__dirname + "/" +'list.html',{user: User.login, list: listItems});
-			})
-		}
-	});
-})
-
-app.post('/del', function(req, res) {
-	var item = req.body.item;
-	redis.lrem(User.list, -1, item);
-	res.redirect('/list');
-})
-
-app.post('/add', function(req, res) {
-	var newItem = req.body.newItem; 
-
-	if(!newItem) return;
-	redis.rpush(User.list, newItem);
-	res.redirect('/list');
-})
-
-var editingElem;
-
-app.post('/editElem', function(req, res) {
-	editingElem = req.body.item; 
-
-	if(!editingElem) return;
-	res.redirect('/edit');
-})
-
-app.get('/edit', function(req, res) {
-	if(!editingElem) return;
-	res.render(__dirname + "/" +'edit.html',{item: editingElem});
-})
-
-app.post('/edit', function(req, res) {
-	var newItem = req.body.item; 
-
-	if(!editingElem || !newItem) return;
-	redis.linsert(User.list,'BEFORE', editingElem, newItem);
-	redis.lrem(User.list, -1, editingElem);
-	res.redirect('/list');
-})
-*/
