@@ -16,7 +16,6 @@
 	{{/list}} -->
 	<div class="container">
 		<h1 class="page-header">{{user}}'s list</h1>
-		<br>
 		<div class="row jumbotron">
 
 			<div id="usersList" class="col-sm-7" border='dotted'>
@@ -27,7 +26,7 @@
 					{{#usersBooks}}
 					<div class="listItem list-group-item">
 						<div class="itemName">
-							<i>{{name}} </i> <span class="author"> {{author}} </span>
+							<i>{{name}} </i> <span id="author"> {{author}} </span>
 						</div>
 						<!-- <form action = "/return" method = "POST" class="form"> -->
 							<input type = "hidden" value = "{{_id}}" name="item">
@@ -51,8 +50,12 @@
 				<div class="listItem list-group-item">
 					<div class="itemName">
 						<i>{{name}} </i> <span class="author"> {{author}} </span>
+						<input type = "hidden" value = "{{_id}}" name="item">
+						<span class="glyphicon glyphicon-info-sign revIcon" id="revIcon{{_id}}" name="{{_id}}" data-toggle="tooltip" title="See description"></span>
 						{{#review}}
-						<span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" title="Description: {{review}}"></span>
+						{{/review}}
+						{{^review}}
+							<script type="text/javascript"> $('#revIcon{{_id}}').remove()</script>
 						{{/review}}
 					</div>
 					<form action = "/rent" method = "POST" class="form">
@@ -117,6 +120,29 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="modal fade" id="reviews" role="dialog">
+		<div class="modal-dialog">
+		  <!-- Modal content-->
+			<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+			<div class="form-group">
+				<label for="usr">Reviews:</label>
+				
+
+			</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default noReview" data-dismiss="modal">Return without review</button>
+			  	<button type="button" class="btn btn-success withReview" id="finishSummary" data-dismiss="modal">Add review</button>
+			</div>
+			</div>
+		</div>
+	</div>
+
 
 
 	</body>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="/resources/style-reviews.css">
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">
+		<script type="text/javascript" src="/jquery/jquery.js"></script>
+		<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="/resources/reviews.js"></script>
+		<script type="text/javascript" src="/mustache/mustache.min.js"></script>
+	</head>
+	<body>
+	<!-- 
+	{{#list}}
+	* {{.}}
+	{{/list}} -->
+	<div class="container">
+		<h1 class="page-header">{{book.name}} <span class="author">- {{book.author}}</span></h1>
+		<div class="row jumbotron">
+
+			<div id="reviewsList" class="" border='dotted'>
+			<div class="page-header">
+				<h4>Reviews:</h4> {{user}}
+			</div>
+			<div class="list-group">
+				{{#reviews}}
+				<div class="listItem list-group-item">
+					<div class="itemName">
+						<div class="date">{{date}} </div> <div class="review"> {{content}} </div>
+						<!-- <span class="glyphicon glyphicon-info-sign" id="revIcon{{_id}}"" data-toggle="tooltip" title="See description"></span>
+						{{#review}}
+						{{/review}}
+						{{^review}}
+							<script type="text/javascript"> $('#revIcon{{_id}}').remove()</script>
+						{{/review}} -->
+					</div>
+<!-- 					<form action = "/rent" method = "POST" class="form">
+						<input type = "hidden" value = "{{_id}}" name="item">
+						{{#rentBy}}
+						<button class="btn btn-primary btn-sm .btn-default disabled" type = "submit" value = "Rent" name="{{_id}}" disabled>
+							<span class="glyphicon glyphicon-triangle-left"></span> Not avaliable
+						</button>
+						{{/rentBy}}
+						{{^rentBy}}
+						<button class="btn btn-primary btn-sm .btn-default active" type = "submit" value = "Rent" name="{{_id}}">
+							<span class="glyphicon glyphicon-triangle-left"></span> Rent
+						{{/rentBy}}
+						</button>
+					</form> -->
+				</div>
+				{{/reviews}}
+				</div>
+			</div>
+			
+			<br><br>
+		</div>
+	</div>
+
+
+	</body>
+</html>

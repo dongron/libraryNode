@@ -28,7 +28,7 @@ $(function() {
 			url: "/return",
 			data: values,
 			success: function(response){
-			window.location.href = "list";
+				window.location.href = "list";
 			}
 		});
 	});
@@ -51,10 +51,28 @@ $(function() {
 			url: "/returnWithReview",
 			data: values,
 			success: function(response){
-			window.location.href = "list";
+				window.location.href = "list";
 			}
 		});
 
+	});
+
+	$('.revIcon').click(function(event) {
+		var currentBookIdWithRev = $(this).attr('name');
+		console.log(currentBookIdWithRev);
+/*		var values = {
+			'bookId': $(this).attr('name')
+		};
+		$.ajax({
+			type: "POST",
+			url: "/bookReviews",
+			data: values,
+			success: function(response){
+				console.log(response);
+				window.location.href = "reviews"+response;
+			}
+		});*/
+		window.location.href = "reviews/"+currentBookIdWithRev;
 	});
 
 

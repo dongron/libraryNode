@@ -39,8 +39,6 @@ app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist/'
 app.use('/mustache', express.static(__dirname + '/node_modules/mustache/'));
 
 var User = {id:'', logn:'', pass:'', list:''};
-var isLocked = false;
-
 
 
 
@@ -86,35 +84,80 @@ app.get('/list', function (req, res) {
 
 
 app.post('/rent', function(req, res) {
-	var bookId = req.body.item;
-
-	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": User.id.toString()}}).then(
-		items => {
-			res.redirect('/list');
-		},
-		err => console.log(err)
-	);
+	updateRenting(req, res, true);
 })
 
 app.post('/return', function(req, res) {
-	var bookId = req.body.item;
-
-	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": ""}}).then(
-		items => {
-			res.redirect('/list');
-		},
-		err => console.log(err)
-	);
+	updateRenting(req, res); 
 })
 
 app.post('/returnWithReview', function(req, res) {
-	var bookId = req.body.item;
-	var review = req.body.review;
+	updateRenting(req, res); 
+})
 
-	booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": "", "review": review}}).then(
-		items => {
-			res.redirect('/list');
+/*app.post('/bookReviews', function (req, res) {
+	var bookId = req.body.bookId;
+
+	booksCollection.findOne({"_id": new ObjectId(bookId)}).then(
+		item => {
+			console.log(item.review);
+			res.send(item.review);
 		},
-		err => console.log(err)
+		err => console.error(err)
+	);
+})*/
+
+app.get('/reviews/:_id', function (req, res) {
+	console.log(req.params._id);
+	booksCollection.findOne({"_id": new ObjectId(req.params._id)}).then(
+		item => {
+			console.log("reviews:");
+			console.log(item.review);
+			var book = {
+				name: item.name,
+				author: item.author
+			}
+			res.render(__dirname + "/views/" +'bookDetails.html',{userId: User.id, book: book, reviews: item.review});
+			// res.send(item.review);
+		},
+		err => console.error(err)
 	);
 })
+
+// --
+
+function updateRenting(req, res, isRenting) {
+	var bookId = req.body.item;
+	var review = req.body.review || "";
+	console.log(User.id);
+	if(!bookId) {
+		return;
+	} else if(isRenting) {
+		booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": User.id.toString()}}).then(
+			items => {
+				res.redirect('/list');
+			},
+			err => console.log(err)
+		);
+	} else if(review) {
+		var reviewObject = {
+			date: new Date(),
+			user_id: new ObjectId(User.id),
+			content: review
+		}
+
+		booksCollection.update({"_id": new ObjectId(bookId)}, {$push: reviewObject}).then(
+			items => {
+				res.redirect('/list');
+			},
+			err => console.log(err)
+		);
+	} else {
+		booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": ""}}).then(
+			items => {
+				res.redirect('/list');
+			},
+			err => console.log(err)
+		);
+	}
+}

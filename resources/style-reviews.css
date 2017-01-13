@@ -1,0 +1,15 @@
+.page-header h4 {
+	margin: 0px 0px 0px 3em;
+	padding: 0px;
+}
+.author {
+	font-size: 70%;
+	font-style: italic;
+}
+.review {
+	font-size: 140%;
+}
+.date {
+	font-size: 80%;
+	font-style: italic;
+}
