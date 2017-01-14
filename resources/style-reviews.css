@@ -13,3 +13,9 @@
 	font-size: 80%;
 	font-style: italic;
 }
+.jumbotron {
+	padding-top: 2em;
+}
+.btn {
+	float: right;
+}

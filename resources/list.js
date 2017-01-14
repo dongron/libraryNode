@@ -54,7 +54,6 @@ $(function() {
 				window.location.href = "list";
 			}
 		});
-
 	});
 
 	$('.revIcon').click(function(event) {

@@ -8,7 +8,7 @@ db.books.insert({name:"Harry Potter 1", author: "J.K. Rowling", year: "1999", re
 db.users.insert({login: "test", password: "test"});
 db.users.insert({login: "test1", password: "test1"});
 db.users.insert({login: "test2", password: "test2"});
-
+db.users.insert({_id: ObjectId("5063114bd386d8fadbd6b004"), login: "test3", password: "test3"});
 
 
 

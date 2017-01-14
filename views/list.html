@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" type="text/css" href="/resources/style-list.css">
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="/resources/style-list.css">
 		<script type="text/javascript" src="/jquery/jquery.js"></script>
 		<script type="text/javascript" src="/bootstrap/js/bootstrap.js"></script>
 		<script type="text/javascript" src="/resources/list.js"></script>
@@ -15,10 +15,10 @@
 	* {{.}}
 	{{/list}} -->
 	<div class="container">
-		<h1 class="page-header">{{user}}'s list</h1>
+		<h1 class="page-header">{{user}}'s books</h1>
 		<div class="row jumbotron">
 
-			<div id="usersList" class="col-sm-7" border='dotted'>
+			<div id="usersList" class="col-sm-6" border='dotted'>
 				<div class="page-header">
 				<h4>Your rented books</h4>
 				</div>
@@ -41,7 +41,7 @@
 			</div>
 
 
-			<div id="fullList" class="col-sm-5" border='dotted'>
+			<div id="fullList" class="col-sm-6" border='dotted'>
 			<div class="page-header">
 				<h4>All books</h4>
 			</div>
@@ -51,7 +51,7 @@
 					<div class="itemName">
 						<i>{{name}} </i> <span class="author"> {{author}} </span>
 						<input type = "hidden" value = "{{_id}}" name="item">
-						<span class="glyphicon glyphicon-info-sign revIcon" id="revIcon{{_id}}" name="{{_id}}" data-toggle="tooltip" title="See description"></span>
+						<span class="glyphicon glyphicon-info-sign revIcon" id="revIcon{{_id}}" name="{{_id}}" data-toggle="tooltip" title="Click to see description"></span>
 						{{#review}}
 						{{/review}}
 						{{^review}}

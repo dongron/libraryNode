@@ -24,6 +24,9 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectID;
 var userCollection;
 var booksCollection;
+
+//mongodb://localhost:27017/library
+//mongodb://user:password@ds159188.mlab.com:59188/library
 MongoClient.connect("mongodb://localhost:27017/library", function(err, db) {
 	if(!err) {
 		console.log("We are connected");
@@ -111,9 +114,8 @@ app.get('/reviews/:_id', function (req, res) {
 	console.log(req.params._id);
 	booksCollection.findOne({"_id": new ObjectId(req.params._id)}).then(
 		item => {
-			console.log("reviews:");
-			console.log(item.review);
 			var book = {
+				id: req.params._id,
 				name: item.name,
 				author: item.author
 			}
@@ -122,6 +124,20 @@ app.get('/reviews/:_id', function (req, res) {
 		},
 		err => console.error(err)
 	);
+})
+
+app.post('/removeRev', function (req, res) {
+	console.log(req.body.bookId + "|" + req.body.userId );
+
+	booksCollection.update({"_id": new ObjectId(req.body.bookId)}, 
+		{$pull: {"review" : { "user_id": new ObjectId(req.body.userId)}}}).then(
+			items => {
+				console.log("removed");
+				res.send("removed");
+			},
+			err => console.log(err)
+		);
+
 })
 
 // --
@@ -145,8 +161,13 @@ function updateRenting(req, res, isRenting) {
 			user_id: new ObjectId(User.id),
 			content: review
 		}
-
-		booksCollection.update({"_id": new ObjectId(bookId)}, {$push: reviewObject}).then(
+		booksCollection.update({"_id": new ObjectId(bookId)}, {$push: {"review" : reviewObject}}).then(
+			items => {
+				res.redirect('/list');
+			},
+			err => console.log(err)
+		);
+		booksCollection.update({"_id": new ObjectId(bookId)}, {$set: {"rentBy": ""}}).then(
 			items => {
 				res.redirect('/list');
 			},
