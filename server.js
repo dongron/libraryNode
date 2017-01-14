@@ -27,7 +27,7 @@ var booksCollection;
 
 //mongodb://localhost:27017/library
 //mongodb://user:password@ds159188.mlab.com:59188/library
-MongoClient.connect("mongodb://localhost:27017/library", function(err, db) {
+MongoClient.connect("mongodb://user:password@ds159188.mlab.com:59188/library", function(err, db) {
 	if(!err) {
 		console.log("We are connected");
 		userCollection = db.collection('users');
