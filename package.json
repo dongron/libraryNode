@@ -1,12 +1,19 @@
 {
-  "name": "04",
+  "name": "library",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "keywords": [
+    "example",
+    "heroku",
+    "dongron",
+    "library",
+    "node"
+  ],
+  "author": "Dominik Gronkiewicz",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -16,5 +23,8 @@
     "jquery": "^3.1.1",
     "mongodb": "^2.2.16",
     "mustache": "^2.3.0"
+  },
+  "engines": {
+    "node": "4.1.1"
   }
 }
