@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(express.static('resources'));
 app.use('/resources', express.static('resources'));
 
-var server = app.listen(8080, function () {
+var server = app.listen(process.env.PORT || 5000, function () {
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log("Example app listening at http://%s:%s", host, port)
@@ -98,18 +98,6 @@ app.post('/returnWithReview', function(req, res) {
 	updateRenting(req, res); 
 })
 
-/*app.post('/bookReviews', function (req, res) {
-	var bookId = req.body.bookId;
-
-	booksCollection.findOne({"_id": new ObjectId(bookId)}).then(
-		item => {
-			console.log(item.review);
-			res.send(item.review);
-		},
-		err => console.error(err)
-	);
-})*/
-
 app.get('/reviews/:_id', function (req, res) {
 	console.log(req.params._id);
 	booksCollection.findOne({"_id": new ObjectId(req.params._id)}).then(
@@ -132,7 +120,6 @@ app.post('/removeRev', function (req, res) {
 	booksCollection.update({"_id": new ObjectId(req.body.bookId)}, 
 		{$pull: {"review" : { "user_id": new ObjectId(req.body.userId)}}}).then(
 			items => {
-				console.log("removed");
 				res.send("removed");
 			},
 			err => console.log(err)
