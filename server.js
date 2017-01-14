@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(express.static('resources'));
 app.use('/resources', express.static('resources'));
 
-var server = app.listen(8082, function () {
+var server = app.listen(8080, function () {
 	var host = server.address().address;
 	var port = server.address().port;
 	console.log("Example app listening at http://%s:%s", host, port)
