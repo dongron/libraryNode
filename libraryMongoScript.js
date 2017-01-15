@@ -14,7 +14,7 @@ db.books.insert({name:"Kot w butach", author: "Grimm", year: "1960", review: [
 	{date: new Date("2016-12-12T12:00:00Z"), user_id: ObjectId("5063114bd386d8fadbd6b004"), content: "My kids love it!"},
 	], rentBy: "5063114bd386d8fadbd6b004"});
 
-db.books.insert({name:"30 doors down", author: "W. Gombowicz", year: "1956", review: "", rentBy: ""});
+db.books.insert({name:"30 doors down", author: "W. Gombowicz", year: "1956", review: [], rentBy: ""});
 
 db.books.insert({name:"Harry Potter 1", author: "J.K. Rowling", year: "1999", review: [
   {date: new Date("2000-02-02T12:00:00Z"), user_id: ObjectId("5063114bd386d8fadbd6b002"), content: "superman has this book for 5 years and noone can rent it! :( "}
@@ -28,13 +28,13 @@ db.books.insert({name:"50 shades of Grey", author: "E.L. James", year: "2005", r
   ], rentBy: ""});  
 
 
-db.books.insert({name:"30 doors down", author: "W. Gombowicz", year: "1956", review: "", rentBy: ""});
+db.books.insert({name:"30 doors down", author: "W. Gombowicz", year: "1956", review: [], rentBy: ""});
 
 db.books.insert({name:"Star Wars: Memories", author: "L. Benner", year: "2000", review: [
   {date: new Date("2000-02-02T12:00:00Z"), user_id: ObjectId("5063114bd386d8fadbd6b004"), content: "Quite good. Book about great film, but not as good."}
   ], rentBy: ""});  
 
-db.books.insert({name:"Harry Potter 2", author: "J.K. Rowling", year: "2000", review: "", rentBy: "5063114bd386d8fadbd6b000"});
+db.books.insert({name:"Harry Potter 2", author: "J.K. Rowling", year: "2000", review: [], rentBy: "5063114bd386d8fadbd6b000"});
 
 db.books.insert({name:"Hobbit", author: "John Ronald Reuel Tolkien", year: "1981", review: [
   {date: new Date("1999-12-12T12:00:00Z"), user_id: ObjectId("5063114bd386d8fadbd6b004"), content: "Worst book ever, not recommend. "},
@@ -47,9 +47,9 @@ db.books.insert({name:"The North Water", author: "Ian McGuire", year: "2016", re
   {date: new Date("20016-12-30T18:00:00Z"), user_id: ObjectId("5063114bd386d8fadbd6b001"), content: "Propelled by a vision that is savage, brutal and relentless, McGuire relates the tale of an opium-addicted 19th-century Irish surgeon who encounters a vicious psychopath on board an Arctic-bound whaling ship."},
 ], rentBy: "5063114bd386d8fadbd6b002"}); 
 
-db.books.insert({name:"The Underground Railroad", author: "Colson Whitehead", year: "2016", review: "", rentBy: ""}); 
+db.books.insert({name:"The Underground Railroad", author: "Colson Whitehead", year: "2016", review: [], rentBy: ""}); 
 
-db.books.insert({name:"Lord of the Rings", author: "J. R. R. Tolkien", year: "1989", review: [
+db.books.insert({name:"Lord of the Rings 2", author: "J. R. R. Tolkien", year: "1990", review: [
   {date: new Date(), user_id: ObjectId("5063114bd386d8fadbd6b003"), content: "With a conceit as simple as it is bold, Whitehead’s brave, necessary novel imagines a slave fleeing north on a literal underground railroad "}
   ], rentBy: "5063114bd386d8fadbd6b005"}); 
 

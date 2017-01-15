@@ -108,7 +108,6 @@ app.get('/reviews/:_id', function (req, res) {
 				author: item.author
 			}
 			res.render(__dirname + "/views/" +'bookDetails.html',{userId: User.id, book: book, reviews: item.review});
-			// res.send(item.review);
 		},
 		err => console.error(err)
 	);
